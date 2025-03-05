@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Staff Dashboard</title>
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/iosoon-style.css">
+  <link rel="stylesheet" type="text/css" href="css/iosoon-theme12.css">
+
+  <style>
+
+    /* General Styles */
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #784fa3, #4a7cd3);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+
+    }
+
+    .container {
+      background: #654e74f2;
+      padding: 30px 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 1200px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transform: translateY(-20px);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-in-out 0.5s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f9;
+      color: #333;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #466664;
+    }
+
+    tbody tr.no-data {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+    }
+
+    /* Buttons */
+    .btn-back {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #518b75;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background-color: #178a5e;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pagebg" resize></canvas>
+  <div class="container">
+    <h1>Staff Dashboard</h1>
+    <h2>Your Assigned Work Orders</h2>
+
+    <!-- Work Orders Table -->
+    <table id="workOrdersTable">
+      <thead>
+        <tr>
+          <th>Work Order Number</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Contact Person</th>
+          <th>Phone Number</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- Work orders will be dynamically added here -->
+      </tbody>
+    </table>
+
+    <a href="index.html" class="btn-back">Back to Login</a>
+  </div>
+
+  <script>
+    // Simulated data (this would typically come from a backend or shared state)
+    const tickets = [
+      {
+        workOrderNumber: 'WO-001',
+        assignTo: 'QAIS_ALHASNI',
+        description: 'Fix printer issue in office.',
+        location: 'Office A',
+        contactPerson: 'John Doe',
+        phoneNumber: '9715'
+      },
+      {
+        workOrderNumber: 'WO-002',
+        assignTo: 'MAJED_ALALAWI',
+        description: 'Install new software on all computers.',
+        location: 'Office B',
+        contactPerson: 'Jane Smith',
+        phoneNumber: '9715'
+      },
+      {
+        workOrderNumber: 'WO-003',
+        assignTo: 'QAIS_ALHASNI',
+        description: 'Install new software on all computers.',
+        location: 'Office B',
+        contactPerson: 'Jane Smith',
+        phoneNumber: '9715'
+      },
+      {
+        workOrderNumber: 'WO-004',
+        assignTo: 'QAIS_ALHASNI',
+        description: 'Install new software on all computers.',
+        location: 'Office B',
+        contactPerson: 'Jane Smith',
+        phoneNumber: '9715'
+      }
+      // Add more tickets as needed
+    ];
+
+    // Get logged-in user from localStorage
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (!loggedInUser) {
+      alert('You are not logged in!');
+      window.location.href = 'index.html';
+    }
+
+    function renderStaffTickets() {
+      const tableBody = document.getElementById('tableBody');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      const staffTickets = tickets.filter(ticket => ticket.assignTo === loggedInUser);
+
+      if (staffTickets.length === 0) {
+        const noDataRow = document.createElement('tr');
+        noDataRow.className = 'no-data';
+        noDataRow.innerHTML = '<td colspan="5">No work orders assigned to you.</td>';
+        tableBody.appendChild(noDataRow);
+        return;
+      }
+
+      staffTickets.forEach((ticket, index) => {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${ticket.workOrderNumber}</td>
+          <td>${ticket.description}</td>
+          <td>${ticket.location}</td>
+          <td>${ticket.contactPerson}</td>
+          <td>${ticket.phoneNumber}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Render staff tickets when the page loads
+    window.onload = renderStaffTickets;
+  </script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/paper-full.min.js"></script>
+<script src="js/animation6.js"></script>
+
+</body>
+</html>
