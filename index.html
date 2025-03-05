@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Support Ticket System</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/fontawesome-all.min.css">
+  <link rel="stylesheet" type="text/css" href="css/iosoon-style.css">
+  <link rel="stylesheet" type="text/css" href="css/iosoon-theme12.css">
+  <style>
+    
+     /* General Reset */
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #784fa3, #4a7cd3);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Login Container */
+    .login-container {
+      background: #895c9eb3;
+      padding: 30px 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      transform: translateY(-20px);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-in-out 0.5s forwards;
+    }
+
+    
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .login-container h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .login-form input,
+    .login-form button {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .login-form input {
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .login-form button {
+      background: #518b75;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-form button:hover {
+      background: #178a5e;
+    }
+
+    /* Admin/Staff Containers */
+    .container {
+      background: #7c9faff2;
+      padding: 30px 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 10px 20px #00000033;
+      text-align: center;
+      transform: translateY(-20px);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease-in-out 0.5s forwards;
+    }
+
+    .container.hidden {
+      display: none;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .container input,
+    .container select,
+    .container textarea,
+    .container button {
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .container input,
+    .container select,
+    .container textarea {
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .container button {
+      background: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container button:hover {
+      background: #218838;
+    }
+
+    .ticket-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .ticket-item {
+      background: #3a68bd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ticket-item strong {
+      font-size: 1.1rem;
+    }
+
+    .ticket-item span {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Notification */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      display: none;
+      animation: slideIn 0.5s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pagebg" resize></canvas>
+  <!-- Login Page -->
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm" class="login-form">
+      <input type="text" id="username" name="username" placeholder="Username" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <script>
+    const users = {
+      admin: 'admin123',
+      QAIS_ALHASNI: 'qais123',
+      MAJED_ALALAWI: 'majed123',
+      AHMED_ALZAABI: 'ahmedz123',
+      AHMED_ALSINANI: 'ahmeds123',
+      SULTAN_ALSAADI: 'sultan123',
+      MOHAMMED_ALABRI: 'mohammeda123',
+      MOHAMMED_ALWAHIBI: 'mohammedw123'
+    };
+
+    const permissions = {};
+    const tickets = [];
+    const whatsappMapping = {
+      QAIS_ALHASNI: '+971501234567',
+      MAJED_ALALAWI: '+971561234567',
+      AHMED_ALZAABI: '+971507654321',
+      AHMED_ALSINANI: '+971567654321',
+      SULTAN_ALSAADI: '+971501112233',
+      MOHAMMED_ALABRI: '+971561112233',
+      MOHAMMED_ALWAHIBI: '+971509876543'
+    };
+
+    const loginForm = document.getElementById('loginForm');
+
+    let loggedInUser = null;
+
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (users[username] === password) {
+        loggedInUser = username;
+        if (username === 'admin') {
+          // Redirect to Admin Dashboard
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          // Redirect to Staff Dashboard
+          localStorage.setItem('loggedInUser', username); // Store logged-in user in localStorage
+          window.location.href = 'staff-dashboard.html';
+        }
+      } else {
+        alert('Invalid credentials.');
+      }
+    });
+  </script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/paper-full.min.js"></script>
+  <script src="js/animation6.js"></script>
+</body>
+</html>
