@@ -15,7 +15,7 @@
     1 - General Styles
 ------------------------------------*/
 .form-body {
-    background-color: #42287C;
+    background-color: #28727c;
 }
 
 .form-body.gradient-bg {
@@ -251,11 +251,11 @@
 }
 
 .form-content input[type="checkbox"]:not(:checked) + label:after, .form-content input[type="checkbox"]:checked + label:after {
-    color: #42287C;
+    color: #28727c;
 }
 
 .form-content input[type="radio"]:not(:checked) + label:after, .form-content input[type="radio"]:checked + label:after {
-    background-color: #42287C;
+    background-color: #28727c;
 }
 
 .form-content .custom-options input[type="checkbox"]:not(:checked) + label, .form-content .custom-options input[type="checkbox"]:checked + label, .form-content .custom-options input[type="radio"]:not(:checked) + label, .form-content .custom-options input[type="radio"]:checked + label {
@@ -550,11 +550,11 @@
 }
 
 .form-body.without-side .form-content .page-links a.active:after {
-    background-color: #42287C;
+    background-color: #28727c;
 }
 
 .form-body.without-side .form-content .page-links a:hover:after, .form-body.without-side .form-content .page-links a:focus:after {
-    background-color: #42287C;
+    background-color: #28727c;
 }
 
 .form-body.without-side .form-content .form-button .ibtn {
