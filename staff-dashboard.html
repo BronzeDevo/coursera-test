@@ -13,38 +13,26 @@
 
   <style>
 
-    /* General Styles */
+    /* Modern Mobile-First Styles */
     body {
-      font-family: 'Poppins', Arial, sans-serif;
-      background: linear-gradient(135deg, #784fa3, #4a7cd3);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       color: #fff;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       overflow-x: hidden;
-      margin: 0;
-
     }
 
     .container {
-      background: #654e74f2;
-      padding: 30px 40px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 20px;
       width: 100%;
       max-width: 1200px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      transform: translateY(-20px);
-      opacity: 0;
-      animation: fadeInUp 0.5s ease-in-out 0.5s forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      margin: 0 auto;
     }
 
     h1 {
@@ -52,79 +40,177 @@
       margin-bottom: 20px;
     }
 
-    /* Table Styles */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
+    .nav-tabs {
+      border-bottom: none;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    th, td {
-      padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #f4f4f9;
-      color: #333;
+    .nav-tabs .nav-link {
+      color: #fff;
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
       font-weight: bold;
+      transition: all 0.3s ease;
+      margin: 5px;
     }
 
-    tr:hover {
-      background-color: #466664;
-    }
-
-    tbody tr.no-data {
-      text-align: center;
-      font-style: italic;
-      color: #666;
-    }
-
-    /* Buttons */
-    .btn-back {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #518b75;
+    .nav-tabs .nav-link.active {
+      background: #28a745;
       color: white;
-      text-decoration: none;
+      transform: scale(1.05);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-tabs .nav-link:hover {
+      background: #218838;
+      color: white;
+    }
+
+    .tab-content {
+      background: #f4f4f9;
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 400px;
+    }
+
+    /* Mobile-Specific Adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .nav-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-tabs .nav-link {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 0.9rem;
+      }
+
+      .infographic-card {
+        max-width: 300px;
+        margin: 0 auto 15px;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+      }
+
+      .form-control, .form-select {
+        font-size: 0.9rem;
+      }
+
+      .status-icon {
+        font-size: 2rem;
+      }
+
+      .status-value {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Form and Table Styles */
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 12px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.25);
+    }
+
+    .btn-custom {
+      background: #28a745;
+      border: none;
+      padding: 12px 25px;
       border-radius: 5px;
       font-weight: bold;
-      transition: background-color 0.3s ease;
+      transition: background 0.3s ease;
+      width: 100%;
     }
 
-    .btn-back:hover {
-      background-color: #178a5e;
+    .btn-custom:hover {
+      background: #218838;
+    }
+
+    /* Infographics Section */
+    .infographic-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      margin: 0 auto 20px;
+    }
+
+    .infographic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .status-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .status-value {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .outstanding .status-icon {
+      color: #dc3545;
+    }
+
+    .pending .status-icon {
+      color: #ffc107;
+    }
+
+    .completed .status-icon {
+      color: #28a745;
+    }
+
+    /* Work Orders Table */
+    .table {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 1000px;
+    }
+
+    .table thead th {
+      background: #28a745;
+      color: white;
+      border: none;
+    }
+
+    .table tbody tr:hover {
+      background: #f9f9f9;
     }
   </style>
-</head>
-<body>
-  <canvas id="pagebg" resize></canvas>
-  <div class="container">
-    <h1>Staff Dashboard</h1>
-    <h2>Your Assigned Work Orders</h2>
-
-    <!-- Work Orders Table -->
-    <table id="workOrdersTable">
-      <thead>
-        <tr>
-          <th>Work Order Number</th>
-          <th>Description</th>
-          <th>Location</th>
-          <th>Contact Person</th>
-          <th>Phone Number</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody">
-        <!-- Work orders will be dynamically added here -->
-      </tbody>
-    </table>
-
-    <a href="index.html" class="btn-back">Back to Login</a>
-  </div>
-
-  <script>
     // Simulated data (this would typically come from a backend or shared state)
     const tickets = [
       {
